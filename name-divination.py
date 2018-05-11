@@ -49,6 +49,8 @@ def sep(syl):
 
 if __name__ == '__main__':
 
+    from itertools import zip_longest
+
     name1 = input('첫번째 사람의 이름 >> ')
     name2 = input('두번째 사람의 이름 >> ')
 
@@ -65,8 +67,8 @@ if __name__ == '__main__':
     sep1 = [sum([map_strokes[s] for s in sep(c)]) % 10 for c in name1]
     sep2 = [sum([map_strokes[s] for s in sep(c)]) % 10 for c in name2]
 
-    score = list(sum(zip(sep1, sep2), ()))
-    names = list(sum(zip(name1, name2), ()))
+    score = [s for s in sum(zip_longest(sep1, sep2, fillvalue=None), ()) if s is not None]
+    names = [s for s in sum(zip_longest(name1, name2, fillvalue=None), ()) if s is not None]
 
     print('======================')
     print('  '.join(names))
